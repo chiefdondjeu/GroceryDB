@@ -17,14 +17,14 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbar">
 			<div class="navbar-nav">
-				<a class="nav-item nav-link" id="home" href="/">Home</a>
+				<a class="nav-item nav-link" id="home" href="{{url_for('links.home')}}">Home</a>
 			</div>
 			<div class="navbar-nav ms-auto">
-				{% if user.is_authenticated %}
-					<a class="nav-item nav-link" id="admin" href="/admin">Dashboard</a>
-					<a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+				{% if current_user.is_authenticated %}
+					<a class="nav-item nav-link" id="admin" href="{{url_for('links.dashboard')}}">Dashboard</a>
+					<a class="nav-item nav-link" id="logout" href="{{url_for('links.logout')}}">Logout</a>
 				{% else %}
-					<a class="nav-item nav-link" id="login" href="/login">Login</a>
+					<a class="nav-item nav-link" id="login" href="{{url_for('links.login')}}">Login</a>
 				{% endif %}
 			</div>
 		</div>
