@@ -6,4 +6,6 @@ pip:
 	flask
 	flask-sqlalchemy
 	flask-login
-	datetime
+	datetime x
+	pymysql
+	cryptography

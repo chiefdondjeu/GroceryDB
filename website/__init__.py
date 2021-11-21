@@ -1,15 +1,18 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from os import path
+from os import path, getenv
+from dotenv import load_dotenv
 
+load_dotenv()
+
+SQL_LINK = getenv("SQL_LINK")
 db = SQLAlchemy()
-DB_NAME = "grocery.db"
 
 def create_app():
 	app = Flask(__name__)
 	app.config["SECRET_KEY"] = "secret"
-	app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
+	app.config["SQLALCHEMY_DATABASE_URI"] = SQL_LINK
 
 	db.init_app(app)
 
@@ -17,7 +20,7 @@ def create_app():
 	app.register_blueprint(links, url_prefix="/")
 
 	from .models import User
-	create_database(app)
+	# create_database(app)
 
 	login_manager = LoginManager()
 	# redirect to url if user not logged in
@@ -30,7 +33,7 @@ def create_app():
 
 	return app
 
+# only run once
 def create_database(app):
-	if not path.exists("website/" + DB_NAME):
-		db.create_all(app=app)
-		print("Database created!")
+	db.create_all(app=app)
+	print("Database created!")
