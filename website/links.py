@@ -25,8 +25,8 @@ def login():
 		user = User.query.filter_by(username=username).first()
 		if user:
 			if check_password_hash(user.password, password):
-				flash(f"Login successfull. Last login {user.last_login}", category="success")
-				current_time = datetime.now().replace(microsecond=0)
+				flash(f"Login successfull. Last login {user.last_login.strftime('%a %b %d, %I:%M:%S %p')}", category="success")
+				current_time = datetime.now()
 				user.last_login = current_time
 				db.session.commit()
 				login_user(user, remember=True)
@@ -44,9 +44,9 @@ def logout():
 	flash("Logout successfull.", category="success")
 	return redirect(url_for('links.login'))
 
-@links.route("/create-admin")
+@links.route("/createadmin")
 def create_admin():
 	admin = User(username='admin', password=generate_password_hash('admin', method="sha256"))
 	db.session.add(admin)
 	db.session.commit()
-	return redirect(url('links.login'))
+	return redirect(url_for('links.login'))
