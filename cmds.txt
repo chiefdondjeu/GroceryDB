@@ -2,10 +2,4 @@ environment:
 	source env/bin/activate
 	deactivate
 
-pip:
-	flask
-	flask-sqlalchemy
-	flask-login
-	datetime x
-	pymysql
-	cryptography
+flask run
